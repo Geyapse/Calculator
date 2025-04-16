@@ -1,12 +1,11 @@
 package Calculator.Level1;
 
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class CalculatorMain {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        int value = 0;
+        int value;
         char operator;
 
         System.out.print("첫 번째 숫자를 입력하세요: ");
