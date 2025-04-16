@@ -7,9 +7,17 @@ public class CalculatorMain {
         Scanner in = new Scanner(System.in);
         int value;
         char operator;
+        int number1, number2;
 
-        System.out.print("첫 번째 숫자를 입력하세요: ");
-        int number1 = in.nextInt();
+        while (true) {
+            System.out.print("첫 번째 숫자를 입력하세요: ");
+            number1 = in.nextInt();
+            if (number1 < 0) {
+                System.out.println("양의 정수(0포함)를 입력 해주세요");
+            } else {
+                break;
+            }
+        }
         boolean running = true;
 
         while (running) {
@@ -17,9 +25,15 @@ public class CalculatorMain {
             System.out.print("연산자를 입력하세요:");
             operator = in.next().charAt(0);
 
-            System.out.print("두 번째 숫자를 입력하세요: ");
-            int number2 = in.nextInt();
-
+            while (true) {
+                System.out.print("두 번째 숫자를 입력하세요: ");
+                number2 = in.nextInt();
+                if (number2 < 0) {
+                    System.out.println("양의 정수(0포함)를 입력 해주세요");
+                } else {
+                    break;
+                }
+            }
             switch (operator) {
                 case '+':
                     value = number1 + number2;
@@ -33,8 +47,7 @@ public class CalculatorMain {
                 case '/':
                     if (number2 != 0) {
                         value = number1 / number2;
-                    }
-                    else{
+                    } else {
                         System.out.println("0으로 나눌수 없습니다");
                         continue;
                     }
