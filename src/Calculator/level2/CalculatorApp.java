@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class CalculatorApp {
 
-    private List<Integer> results = new ArrayList<>();
+    private final List<Integer> results = new ArrayList<>();
 
     public int sum(int a, int b) {
         int result = a + b;
