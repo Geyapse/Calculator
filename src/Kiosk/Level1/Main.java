@@ -22,19 +22,7 @@ public class Main {
             int input = sc.nextInt();
 
             switch (input) {
-                case 1:
-                    running = false;
-                    break;
-
-                case 2:
-                    running = false;
-                    break;
-
-                case 3:
-                    running = false;
-                    break;
-
-                case 4:
+                case 1, 2, 3, 4:
                     running = false;
                     break;
 
