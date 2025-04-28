@@ -11,78 +11,74 @@ public class Main {
     public static void main(String[] args) {
 
         boolean running = true;
-        Cart cart = new Cart();
-        MainMenu.MainMenuPrint();
-
+        Cart cart = Cart.getInstance();
 
         Scanner sc = new Scanner(System.in);
 
         while (running) {
-
-            int input = sc.nextInt();
-
-            switch (input) {
-
-                case 1:
-                    System.out.println("1. ShackBurger   | W 6.9 | 토마토, 양상추, 쉑소스가 토핑된 치즈버거");
-                    System.out.println("위 메뉴를 장바구니에 추가하시겠습니까?");
-                    System.out.println("1. 확인    2. 취소");
-
-                    int answer1 = sc.nextInt();
-
-                    if (answer1 == 1) {
-                        cart.addItem(Burgers.get(0));
+            int menuChoice = MainMenu.MainMenuPrint(); // 메뉴 선택
+            switch (menuChoice) {
+                case 1: // 버거 메뉴
+                    MenuPrinter.print("Burgers", MainMenu.Burgers);
+                    handleMenuSelection(MainMenu.Burgers, cart);
+                    break;
+                case 2: // 음료 메뉴
+                    MenuPrinter.print("Drinks", MainMenu.Drinks);
+                    handleMenuSelection(MainMenu.Drinks, cart);
+                    break;
+                case 3: // 디저트 메뉴
+                    MenuPrinter.print("Desserts", MainMenu.Desserts);
+                    handleMenuSelection(MainMenu.Desserts, cart);
+                    break;
+                case 4: // 장바구니 확인
+                    if (cart.isEmpty()) {
+                        System.out.println("장바구니가 비어있습니다. 메뉴를 먼저 선택해주세요.");
                     } else {
-                        System.out.println("취소되었습니다");
+                        cart.printCart();
                     }
                     break;
-
-                case 2:
-                    System.out.println("2. SmokeShack    | W 8.9 | 베이컨, 체리 페퍼에 쉑소스가 토핑된 치즈버거");
-                    System.out.println("위 메뉴를 장바구니에 추가하시겠습니까?");
-                    System.out.println("1. 확인    2. 취소");
-                    int answer2 = sc.nextInt();
-                    if (answer2 == 1) {
-                        cart.addItem(menuItems.get(1));
+                case 5: // 주문취소
+                    if (cart.isEmpty()) {
+                        System.out.println("진행중인 주문이 없습니다.");
                     } else {
-                        System.out.println("취소되었습니다");
+                        cart.clearCart();
+                        System.out.println("주문이 취소되었습니다.");
                     }
                     break;
-
-                case 3:
-                    System.out.println("3. Cheeseburger  | W 6.9 | 포테이토 번과 비프패티, 치즈가 토핑된 치즈버거");
-                    System.out.println("위 메뉴를 장바구니에 추가하시겠습니까?");
-                    System.out.println("1. 확인    2. 취소");
-                    int answer3 = sc.nextInt();
-                    if (answer3 == 1) {
-                        cart.addItem(menuItems.get(2));
-                    } else {
-                        System.out.println("취소되었습니다");
-                    }
-                    break;
-
-                case 4:
-                    System.out.println("2. Hamburger     | W 5.4 | 비프패티를 기반으로 야채가 들어간 기본버거");
-                    System.out.println("위 메뉴를 장바구니에 추가하시겠습니까?");
-                    System.out.println("1. 확인    2. 취소");
-                    int answer4 = sc.nextInt();
-                    if (answer4 == 1) {
-                        cart.addItem(menuItems.get(3));
-                    } else {
-                        System.out.println("취소되었습니다");
-                    }
-                    break;
-
-                case 0:
-                    System.out.println("주문을 종료합니다");
-                    cart.printCart();
+                case 0: // 종료
+                    System.out.println("주문을 종료합니다.");
                     running = false;
-
-                default:
+                    break;
+                default: // 예외
+                    System.out.println("잘못된 입력입니다. 다시 선택하세요.");
                     break;
             }
         }
-
-
     }
 
+    private static void handleMenuSelection(java.util.List<MenuItem> menuList, Cart cart) {
+        Scanner sc = new Scanner(System.in);
+        int itemChoice = sc.nextInt();
+
+        if (itemChoice == 0) {
+            return; // 뒤로가기
+        }
+
+        if (itemChoice < 1 || itemChoice > menuList.size()) {
+            System.out.println("잘못된 선택입니다.");
+            return;
+        }
+
+        MenuItem selectedItem = menuList.get(itemChoice - 1);
+        System.out.printf("%s | W %.1f | %s\n", selectedItem.getName(), selectedItem.getPrice(), selectedItem.getDescription());
+        System.out.println("위 메뉴를 장바구니에 추가하시겠습니까?");
+        System.out.println("1. 확인    2. 취소");
+
+        int confirm = sc.nextInt();
+        if (confirm == 1) {
+            cart.addItem(selectedItem);
+        } else {
+            System.out.println("취소되었습니다.");
+        }
+    }
+}

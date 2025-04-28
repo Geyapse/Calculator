@@ -4,8 +4,16 @@ import java.util.*;
 
 
 public class Cart {
-    public static Cart cart;
+    private static Cart instance = new Cart();
+
     private List<MenuItem> items = new ArrayList<>();
+
+    private Cart() {
+    }
+
+    public static Cart getInstance() {
+        return instance;
+    }
 
     public void addItem(MenuItem item) {
         items.add(item);
@@ -20,13 +28,14 @@ public class Cart {
         }
 
         double total = 0;
+
         System.out.println("[ Orders ] ");
-        for (int i = 0; i < items.size(); i++) {
-            MenuItem item = items.get(i);
+
+        for (MenuItem item : items) {
             System.out.printf("%-15s | W %.1f | %s \n", item.getName(), item.getPrice(), item.getDescription());
             total += item.getPrice();
         }
-
+        System.out.println("\n");
         System.out.println("[ Total ]");
         System.out.printf("W %.1f\n", total);
         System.out.println("1. 주문       2. 메뉴판");
@@ -35,13 +44,39 @@ public class Cart {
         int order = sc.nextInt();
 
         if (order == 1) {
-            System.out.printf("주문이 완료되었습니다. 금액은 W %.1f 입니다", total);
+            System.out.println("할인 정보를 입력해주세요.");
+            System.out.println("1. 국가유공자 : 10%");
+            System.out.println("2. 군인      : 5%");
+            System.out.println("3. 학생      : 3%");
+            System.out.println("4. 일반      : 0%");
+
+            int discount = sc.nextInt();
+
+            if (discount == 1) {
+                total = total * 0.9;
+            } else if (discount == 2) {
+                total = total * 0.95;
+            } else if (discount == 3) {
+                total = total * 0.97;
+            } else if (discount == 4) {
+                total = total * 1;
+            } else {
+                System.out.println("잘못된 입력입니다. 다시선택하세요");
+                return;
+            }
+            System.out.printf("주문이 완료되었습니다. 금액은 W %.1f 입니다\n\n", total);
             items.clear();
-        }
-        if (order == 2) {
-            Main.main(new String[0]);
         }
 
 
     }
+
+    public void clearCart() {
+        items.clear();
+    }
+
+    public boolean isEmpty() {
+        return items.isEmpty();
+    }
+
 }
