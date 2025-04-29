@@ -3,19 +3,19 @@ package Kiosk.Level2;
 import java.util.*;
 
 
-public class Cart {
-    private static Cart instance = new Cart();
+public class cart {
+    private static cart instance = new cart();
 
-    private List<MenuItem> items = new ArrayList<>();
+    private List<menuitem> items = new ArrayList<>();
 
-    private Cart() {
+    private cart() {
     }
 
-    public static Cart getInstance() {
+    public static cart getInstance() {
         return instance;
     }
 
-    public void addItem(MenuItem item) {
+    public void addItem(menuitem item) {
         items.add(item);
         System.out.println(item.getName() + "이 장바구니에 추가되었습니다.\n");
     }
@@ -31,7 +31,7 @@ public class Cart {
 
         System.out.println("[ Orders ] ");
 
-        for (MenuItem item : items) {
+        for (menuitem item : items) {
             System.out.printf("%-15s | W %.1f | %s \n", item.getName(), item.getPrice(), item.getDescription());
             total += item.getPrice();
         }
@@ -41,7 +41,7 @@ public class Cart {
         System.out.println("1. 주문       2. 메뉴판");
         Scanner sc = new Scanner(System.in);
 
-        int order = sc.nextInt();
+        int order = input(sc);
 
         if (order == 1) {
             System.out.println("할인 정보를 입력해주세요.");
@@ -50,7 +50,7 @@ public class Cart {
             System.out.println("3. 학생      : 3%");
             System.out.println("4. 일반      : 0%");
 
-            int discount = sc.nextInt();
+            int discount = input(sc);
 
             if (discount == 1) {
                 total = total * 0.9;
@@ -77,6 +77,17 @@ public class Cart {
 
     public boolean isEmpty() {
         return items.isEmpty();
+    }
+
+    private static int input(Scanner sc) {
+        while (true) {
+            String input = sc.nextLine();
+            try{
+                return Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                System.out.println("잘못된 입력입니다. 다시 선택하세요.");
+            }
+        }
     }
 
 }

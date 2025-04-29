@@ -5,7 +5,7 @@ import java.util.Scanner;
 // 장바구니 기능
 // 주문 기능
 // 할인 기능
-public class Main {
+public class main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int total = 0;

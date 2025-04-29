@@ -1,12 +1,12 @@
 package Kiosk.Level2;
 
-public class MenuItem {
+public class menuitem {
 
     private String name;
     private double price;
     private String description;
 
-    public MenuItem(String name, double price, String description) {
+    public menuitem(String name, double price, String description) {
         this.name = name;
         this.price = price;
         this.description = description;
@@ -14,7 +14,7 @@ public class MenuItem {
     }
 
     public void addMenuItem(String name, int price, String description) {
-        MenuItem item = new MenuItem(name, price, description);
+        menuitem item = new menuitem(name, price, description);
 
     }
 
