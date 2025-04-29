@@ -1,4 +1,4 @@
-package Kiosk.Level2;
+package Kiosk.Level5;
 
 import java.util.Scanner;
 
@@ -11,7 +11,7 @@ public class main {
     public static void main(String[] args) {
 
         boolean running = true;
-        cart cart = Kiosk.Level2.cart.getInstance();
+        cart cart = Kiosk.Level5.cart.getInstance();
 
         Scanner sc = new Scanner(System.in);
 
