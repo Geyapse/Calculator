@@ -8,7 +8,6 @@ import java.util.Scanner;
 public class main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int total = 0;
         boolean running = true;
 
         while (running) {
@@ -23,13 +22,9 @@ public class main {
 
             switch (input) {
                 case 1, 2, 3, 4:
-                    running = false;
                     break;
-
                 case 0:
                     System.out.println("주문을 종료합니다");
-                    running = false;
-
                 default:
                     running = false;
                     break;
